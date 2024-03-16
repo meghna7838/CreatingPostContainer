@@ -23,12 +23,18 @@ imageEl.src = image;
 
 const pEl = document.createElement("p");
 postClassDiv.appendChild(pEl);
-pEl.textContent =content;
+pEl.textContent = content;
 
 const btnEl = document.createElement("button");
 postClassDiv.appendChild(btnEl);
 btnEl.innerHTML = "Like";
 btnEl.classList.add('like-button');
+btnEl.addEventListener('click',()=>{
+  post1.likes++;
+  btnEl.style.backgroundColor="red";
+  btnEl.disabled ="true";
+  postDiv.textContent = `Likes: ${post1.likes}   Comments: ${post1.comments.length}`;
+});
 
 const inputEl = document.createElement("input");
 inputEl.setAttribute('type','text');
@@ -38,12 +44,19 @@ postClassDiv.appendChild(inputEl);
 const btnElCom = document.createElement("button");
 postClassDiv.appendChild(btnElCom);
 btnElCom.innerHTML = "Comment";
-btnElCom.classList.add('comment-button')
+btnElCom.classList.add('comment-button');
+btnElCom.addEventListener('click',()=>{
+  var cmtInpt = inputEl.value;
+  console.log(cmtInpt);
+  comments.push(cmtInpt); 
+  console.log(comments);
+  postDiv.textContent = `Likes: ${post1.likes}   Comments: ${post1.comments.length}`;
+});
   
 const postDiv = document.createElement("div");
 postClassDiv.appendChild(postDiv);
 postDiv.className = "post-footer";
-postDiv.textContent = `Likes: ${post1.likes} Comments: ${post1.comments.length}`;
+postDiv.textContent = `Likes: ${likes} Comments: ${comments.length}`;
 
 const commentDiv = document.createElement("div");
 postClassDiv.appendChild(commentDiv);
@@ -57,8 +70,13 @@ comments.forEach((comment)=>{
 
 });
 
-postDiv.addEventListener('click',()=>
-                         {commentDiv.style.display = block;});
+postDiv.addEventListener('click',() => {
+    if (commentDiv.style.display === 'none') {
+      commentDiv.style.display = 'block';
+    } else {
+      commentDiv.style.display = 'none';
+    }
+  });
 
 
 
